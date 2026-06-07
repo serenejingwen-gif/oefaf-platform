@@ -161,7 +161,7 @@ wireframe diagrams). See the [`Makefile`](Makefile) for details.
 ## License and hosting
 
 Released under the [MIT License](LICENSE). Intended public hosting:
-`<JING_WEN_TO_FILL: GitHub organization/URL, e.g. "https://github.com/[org]/oefaf-platform">`.
+https://github.com/serenejingwen-gif/oefaf-platform.
 
 Bundled sample data is synthetic illustrative data generated for demonstration
 and is labeled as such throughout the repository.
