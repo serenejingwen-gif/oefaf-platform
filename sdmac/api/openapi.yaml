@@ -1,0 +1,750 @@
+openapi: 3.1.0
+info:
+  title: SD-MAC Public Analytics API
+  description: SD-MAC (Sector-Wide Deployable Modular Analytics Commons) public analytics
+    API for the Integrated Commodity Risk Analytics Platform (GEA, CRICAT, SD-MAC),
+    governed under the planned Open Energy Finance Analytics Foundation (OEFAF, in
+    formation as a Section 501(c)(3) public charity). All data served by this API
+    is synthetic illustrative data generated for demonstration. It is NOT real agency
+    data and is NOT derived from any proprietary or employer source.
+  version: 0.1.0
+paths:
+  /v1/events:
+    get:
+      tags:
+      - GEA
+      summary: List Events
+      description: 'List supply-disruption event summaries (GEA), with optional filters.
+
+
+        Returns the compact projection: ``event_id``,
+
+        ``detected_at_utc``, ``severity_score``, and ``public_evidence_refs[]``.
+
+        Filters are conjunctive (an event must satisfy all supplied filters).'
+      operationId: list_events_v1_events_get
+      parameters:
+      - name: commodity
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/Commodity'
+          - type: 'null'
+          description: Filter by affected commodity category
+          title: Commodity
+        description: Filter by affected commodity category
+      - name: region
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter by region_iso (exact match, e.g. 'USA')
+          title: Region
+        description: Filter by region_iso (exact match, e.g. 'USA')
+      - name: since
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Return events with detected_at_utc >= this ISO-8601 UTC timestamp
+          title: Since
+        description: Return events with detected_at_utc >= this ISO-8601 UTC timestamp
+      - name: min_severity
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: number
+            maximum: 1.0
+            minimum: 0.0
+          - type: 'null'
+          description: Return events with severity_score >= this value
+          title: Min Severity
+        description: Return events with severity_score >= this value
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventSummary'
+                title: Response List Events V1 Events Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/events/{event_id}:
+    get:
+      tags:
+      - GEA
+      summary: Get Event
+      description: Return the full ``supply_disruption_event`` for ``event_id`` (GEA).
+      operationId: get_event_v1_events__event_id__get
+      parameters:
+      - name: event_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Event Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupplyDisruptionEvent'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/forecasts/{iso_region}:
+    get:
+      tags:
+      - CRICAT
+      summary: Get Forecasts
+      description: 'Return ``load_forecast_record`` array for an ISO/RTO region (CRICAT).
+
+
+        Optionally bound by the target forecast window. The ``iso_region`` path is
+
+        validated against the registry enum by FastAPI before this handler runs.'
+      operationId: get_forecasts_v1_forecasts__iso_region__get
+      parameters:
+      - name: iso_region
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/IsoRegion'
+      - name: target_window_start
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Return forecasts with target_window_start_utc >= this ISO-8601
+            UTC timestamp
+          title: Target Window Start
+        description: Return forecasts with target_window_start_utc >= this ISO-8601
+          UTC timestamp
+      - name: target_window_end
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Return forecasts with target_window_end_utc <= this ISO-8601
+            UTC timestamp
+          title: Target Window End
+        description: Return forecasts with target_window_end_utc <= this ISO-8601
+          UTC timestamp
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoadForecastRecord'
+                title: Response Get Forecasts V1 Forecasts  Iso Region  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/scenarios:
+    post:
+      tags:
+      - CRICAT
+      summary: Create Scenario
+      description: 'Create and persist a ``capacity_allocation_scenario`` (CRICAT).
+
+
+        The server derives demand/capacity assumptions, reserve margin, and
+
+        probability of stress deterministically (seeded) from the request, assigns
+        a
+
+        ``scenario_id``, and stores the record so a subsequent
+
+        ``GET /v1/scenarios/{scenario_id}`` returns it.'
+      operationId: create_scenario_v1_scenarios_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScenarioCreateRequest'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CapacityAllocationScenario'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/scenarios/{scenario_id}:
+    get:
+      tags:
+      - CRICAT
+      summary: Get Scenario
+      description: Return the full ``capacity_allocation_scenario`` for ``scenario_id``
+        (CRICAT).
+      operationId: get_scenario_v1_scenarios__scenario_id__get
+      parameters:
+      - name: scenario_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scenario Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CapacityAllocationScenario'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/modules:
+    get:
+      tags:
+      - SD-MAC
+      summary: List Modules
+      description: List ``module_manifest`` records (SD-MAC), with optional filters.
+      operationId: list_modules_v1_modules_get
+      parameters:
+      - name: platform_component
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/PlatformComponent'
+          - type: 'null'
+          description: Filter by owning platform component
+          title: Platform Component
+        description: Filter by owning platform component
+      - name: validation_status
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/ValidationStatus'
+          - type: 'null'
+          description: Filter by module validation status
+          title: Validation Status
+        description: Filter by module validation status
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ModuleManifest'
+                title: Response List Modules V1 Modules Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/modules/{module_id}:
+    get:
+      tags:
+      - SD-MAC
+      summary: Get Module
+      description: Return the full ``module_manifest`` for ``module_id`` (SD-MAC).
+      operationId: get_module_v1_modules__module_id__get
+      parameters:
+      - name: module_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Module Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleManifest'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /healthz:
+    get:
+      tags:
+      - ops
+      summary: Healthz
+      description: 'Operational liveness probe with seeded record counts.
+
+
+        This endpoint is operational only and is intentionally outside the
+
+        versioned ``/v1`` record API surface.'
+      operationId: healthz_healthz_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+components:
+  schemas:
+    CapacityAllocationScenario:
+      properties:
+        scenario_id:
+          type: string
+          title: Scenario Id
+          description: Stable unique identifier for the scenario
+        scenario_label:
+          type: string
+          title: Scenario Label
+          description: Human-readable scenario name
+        stress_drivers:
+          items:
+            type: string
+          type: array
+          title: Stress Drivers
+          description: Public stress drivers
+        time_horizon_hours:
+          type: integer
+          title: Time Horizon Hours
+          description: Scenario time horizon (hours)
+        regions:
+          items:
+            type: string
+          type: array
+          title: Regions
+          description: ISO/RTO regions in scope
+        assumed_demand_mw:
+          type: number
+          title: Assumed Demand Mw
+          description: Assumed peak demand (MW)
+        assumed_available_capacity_mw:
+          type: number
+          title: Assumed Available Capacity Mw
+          description: Assumed available capacity (MW)
+        reserve_margin_pct:
+          type: number
+          title: Reserve Margin Pct
+          description: Reserve margin as percent of demand
+        probability_of_stress:
+          type: number
+          maximum: 1.0
+          minimum: 0.0
+          title: Probability Of Stress
+          description: Estimated probability of grid stress
+        data_provenance:
+          items:
+            type: string
+          type: array
+          title: Data Provenance
+          description: Public-data provenance references
+      type: object
+      required:
+      - scenario_id
+      - scenario_label
+      - stress_drivers
+      - time_horizon_hours
+      - regions
+      - assumed_demand_mw
+      - assumed_available_capacity_mw
+      - reserve_margin_pct
+      - probability_of_stress
+      - data_provenance
+      title: CapacityAllocationScenario
+      description: 'Full ``capacity_allocation_scenario`` (CRICAT).
+
+
+        Mirrors ``sdmac/schema_registry/capacity_allocation_scenario.yaml`` v0.1.'
+    Commodity:
+      type: string
+      enum:
+      - crude_oil
+      - natural_gas
+      - refined_products
+      - electricity
+      - lng
+      - coal
+      - agricultural
+      title: Commodity
+      description: '``supply_disruption_event.commodity`` enum (GEA).'
+    EventSummary:
+      properties:
+        event_id:
+          type: string
+          title: Event Id
+        detected_at_utc:
+          type: string
+          title: Detected At Utc
+        severity_score:
+          type: number
+          maximum: 1.0
+          minimum: 0.0
+          title: Severity Score
+        public_evidence_refs:
+          items:
+            type: string
+          type: array
+          title: Public Evidence Refs
+      type: object
+      required:
+      - event_id
+      - detected_at_utc
+      - severity_score
+      - public_evidence_refs
+      title: EventSummary
+      description: 'Compact ``supply_disruption_event`` projection for ``GET /v1/events``.
+
+
+        The list-endpoint contract specifies it returns only
+
+        ``event_id``, ``detected_at_utc``, ``severity_score``, and
+
+        ``public_evidence_refs[]`` (not the full record).'
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    HealthResponse:
+      properties:
+        status:
+          type: string
+          title: Status
+          description: Liveness indicator; 'ok' when the app is serving
+        events_loaded:
+          type: integer
+          title: Events Loaded
+          description: Count of seeded supply_disruption_event records
+        forecasts_loaded:
+          type: integer
+          title: Forecasts Loaded
+          description: Count of seeded load_forecast_record records
+        scenarios_loaded:
+          type: integer
+          title: Scenarios Loaded
+          description: Count of capacity_allocation_scenario records
+        modules_loaded:
+          type: integer
+          title: Modules Loaded
+          description: Count of module_manifest records
+      type: object
+      required:
+      - status
+      - events_loaded
+      - forecasts_loaded
+      - scenarios_loaded
+      - modules_loaded
+      title: HealthResponse
+      description: Operational health payload for ``GET /healthz`` (not a record type).
+    IsoRegion:
+      type: string
+      enum:
+      - PJM
+      - ERCOT
+      - MISO
+      - NYISO
+      - ISO_NE
+      - CAISO
+      - SPP
+      title: IsoRegion
+      description: '``load_forecast_record.iso_region`` enum (CRICAT).'
+    LoadForecastRecord:
+      properties:
+        forecast_id:
+          type: string
+          title: Forecast Id
+          description: Unique identifier for this forecast issuance
+        iso_region:
+          $ref: '#/components/schemas/IsoRegion'
+          description: Public ISO/RTO region
+        forecast_issued_at_utc:
+          type: string
+          title: Forecast Issued At Utc
+          description: Issuance time (ISO-8601 UTC)
+        target_window_start_utc:
+          type: string
+          title: Target Window Start Utc
+          description: Target window start (ISO-8601 UTC)
+        target_window_end_utc:
+          type: string
+          title: Target Window End Utc
+          description: Target window end (ISO-8601 UTC)
+        predicted_load_mw:
+          type: number
+          title: Predicted Load Mw
+          description: Point load forecast (MW)
+        prediction_interval_low_mw:
+          type: number
+          title: Prediction Interval Low Mw
+          description: Lower prediction-interval bound (MW)
+        prediction_interval_high_mw:
+          type: number
+          title: Prediction Interval High Mw
+          description: Upper prediction-interval bound (MW)
+        model_id:
+          type: string
+          title: Model Id
+          description: Identifier of the open-source model used
+        input_data_sources:
+          items:
+            type: string
+          type: array
+          title: Input Data Sources
+          description: Public-data source identifiers used
+      type: object
+      required:
+      - forecast_id
+      - iso_region
+      - forecast_issued_at_utc
+      - target_window_start_utc
+      - target_window_end_utc
+      - predicted_load_mw
+      - prediction_interval_low_mw
+      - prediction_interval_high_mw
+      - model_id
+      - input_data_sources
+      title: LoadForecastRecord
+      description: 'Full ``load_forecast_record`` (CRICAT).
+
+
+        Mirrors ``sdmac/schema_registry/load_forecast_record.yaml`` v0.1.'
+    ModuleManifest:
+      properties:
+        module_id:
+          type: string
+          title: Module Id
+          description: Stable module identifier
+        module_name:
+          type: string
+          title: Module Name
+          description: Human-readable module name
+        platform_component:
+          $ref: '#/components/schemas/PlatformComponent'
+          description: Owning platform component
+        license:
+          type: string
+          title: License
+          description: Open-source license identifier (e.g. MIT)
+        maintainers:
+          items:
+            type: string
+          type: array
+          title: Maintainers
+          description: Maintainer handles or affiliations
+        public_dependencies:
+          items:
+            type: string
+          type: array
+          title: Public Dependencies
+          description: Open-source dependencies
+        data_inputs:
+          items:
+            type: string
+          type: array
+          title: Data Inputs
+          description: Public/licensed data inputs consumed
+        outputs:
+          items:
+            type: string
+          type: array
+          title: Outputs
+          description: Schema-registered output record types
+        validation_status:
+          $ref: '#/components/schemas/ValidationStatus'
+          description: Module validation status
+        documentation_url:
+          type: string
+          title: Documentation Url
+          description: Documentation URL
+      type: object
+      required:
+      - module_id
+      - module_name
+      - platform_component
+      - license
+      - maintainers
+      - public_dependencies
+      - data_inputs
+      - outputs
+      - validation_status
+      - documentation_url
+      title: ModuleManifest
+      description: 'Full ``module_manifest`` record (SD-MAC).
+
+
+        Mirrors ``sdmac/schema_registry/module_manifest.yaml`` v0.1.'
+    PlatformComponent:
+      type: string
+      enum:
+      - gea
+      - cricat
+      - sdmac
+      - shared
+      title: PlatformComponent
+      description: '``module_manifest.platform_component`` enum (SD-MAC).'
+    ScenarioCreateRequest:
+      properties:
+        scenario_label:
+          type: string
+          title: Scenario Label
+          description: Human-readable scenario name
+        stress_drivers:
+          items:
+            type: string
+          type: array
+          title: Stress Drivers
+          description: Public stress drivers in scope
+        regions:
+          items:
+            type: string
+          type: array
+          title: Regions
+          description: ISO/RTO regions in scope
+        time_horizon_hours:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Time Horizon Hours
+          description: Scenario time horizon (hours)
+      type: object
+      required:
+      - scenario_label
+      - stress_drivers
+      - regions
+      - time_horizon_hours
+      title: ScenarioCreateRequest
+      description: 'Request body for ``POST /v1/scenarios`` (CRICAT).
+
+
+        Per the endpoint contract the caller supplies only ``scenario_label``,
+
+        ``stress_drivers[]``, ``regions[]``, and ``time_horizon_hours``. The server
+
+        deterministically derives the demand/capacity assumptions, reserve margin,
+
+        and probability of stress (transparent grid-modeling logic, seeded) and
+
+        assigns the ``scenario_id``.'
+    SupplyDisruptionEvent:
+      properties:
+        event_id:
+          type: string
+          title: Event Id
+          description: Stable unique identifier for the disruption event
+        detected_at_utc:
+          type: string
+          title: Detected At Utc
+          description: Detection time (ISO-8601 UTC)
+        commodity:
+          $ref: '#/components/schemas/Commodity'
+          description: Affected commodity category
+        region_iso:
+          type: string
+          title: Region Iso
+          description: ISO 3166-1 alpha-3 country/region code
+        source_categories:
+          items:
+            type: string
+          type: array
+          title: Source Categories
+          description: Public source categories supporting detection
+        severity_score:
+          type: number
+          maximum: 1.0
+          minimum: 0.0
+          title: Severity Score
+          description: Calibrated severity score
+        confidence:
+          type: number
+          maximum: 1.0
+          minimum: 0.0
+          title: Confidence
+          description: Calibration-based confidence
+        public_evidence_refs:
+          items:
+            type: string
+          type: array
+          title: Public Evidence Refs
+          description: Public source URLs supporting the event
+      type: object
+      required:
+      - event_id
+      - detected_at_utc
+      - commodity
+      - region_iso
+      - source_categories
+      - severity_score
+      - confidence
+      - public_evidence_refs
+      title: SupplyDisruptionEvent
+      description: 'Full ``supply_disruption_event`` record (GEA).
+
+
+        Mirrors ``sdmac/schema_registry/supply_disruption_event.yaml`` v0.1.'
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ValidationStatus:
+      type: string
+      enum:
+      - draft
+      - internal_validated
+      - public_validated
+      title: ValidationStatus
+      description: '``module_manifest.validation_status`` enum (SD-MAC).'

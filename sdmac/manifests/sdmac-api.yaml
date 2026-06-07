@@ -1,0 +1,25 @@
+# module_manifest record (conforms to sdmac/schema_registry/module_manifest.yaml v0.1)
+# SD-MAC API module: FastAPI service exposing GEA, CRICAT, and SD-MAC analytics
+# over the public schema-registry record types, served from synthetic fixtures.
+module_id: sdmac-api
+module_name: SD-MAC Public Analytics API
+platform_component: sdmac
+license: MIT
+maintainers:
+  - "<JING_WEN_TO_FILL: maintainer handle or institutional affiliation>"
+public_dependencies:
+  - "fastapi==0.128.0"
+  - "pydantic==2.12.5"
+  - "uvicorn"
+data_inputs:
+  - "supply_disruption_event"
+  - "load_forecast_record"
+  - "capacity_allocation_scenario"
+  - "module_manifest"
+outputs:
+  - "supply_disruption_event"
+  - "load_forecast_record"
+  - "capacity_allocation_scenario"
+  - "module_manifest"
+validation_status: draft
+documentation_url: "<JING_WEN_TO_FILL: documentation URL>"

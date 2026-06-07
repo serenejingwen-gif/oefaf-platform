@@ -1,0 +1,72 @@
+%% OEFAF platform overview architecture diagram.
+%% Non-proprietary. Depicts public/licensed data sources flowing into the
+%% GEA and CRICAT analytics components, exposed through the SD-MAC commons
+%% (API, schema registry, manifests), out to a public portal and external
+%% users, under the planned OEFAF nonprofit governance.
+%% No proprietary or employer code, data, models, or identifiers.
+flowchart LR
+    subgraph SRC["Public / licensed data sources"]
+        direction TB
+        WX["Weather & climate feeds<br/>(NOAA NCEP, ECMWF Open Data)"]
+        ENERGY["Public energy-market data<br/>(EIA, ISO/RTO public reports)"]
+        REG["Reliability & regulatory<br/>(NERC, FERC)"]
+        EVENT["Sanctions / trade / AIS / satellite<br/>(OFAC, public AIS, Copernicus/USGS)"]
+    end
+
+    subgraph GEA["GEA — Geopolitical-Event Analytics"]
+        direction TB
+        GEA_ING["Event ingestion & cleaning"]
+        GEA_SCORE["Event scoring &<br/>supply-disruption risk estimation"]
+        GEA_ING --> GEA_SCORE
+    end
+
+    subgraph CRICAT["CRICAT — Climate-Risk Integrated Capacity-Allocation Toolkit"]
+        direction TB
+        CR_FC["Load forecasting"]
+        CR_GRID["Grid-region modeling &<br/>capacity-allocation scenarios"]
+        CR_FC --> CR_GRID
+    end
+
+    subgraph SDMAC["SD-MAC — Sector-Wide Deployable Modular Analytics Commons"]
+        direction TB
+        SD_API["Public REST API (/v1)"]
+        SD_SCHEMA["Schema registry"]
+        SD_MANIFEST["Module manifests"]
+        SD_SCHEMA -. validates .-> SD_API
+        SD_MANIFEST -. describes .-> SD_API
+    end
+
+    subgraph USERS["Public portal & external users"]
+        direction TB
+        PORTAL["Public portal /<br/>open-source repository"]
+        FED["Federal agencies"]
+        ISO["ISOs / RTOs"]
+        UTIL["Utilities"]
+        REGUL["Regulators"]
+        UNIV["Universities & researchers"]
+        PORTAL --> FED
+        PORTAL --> ISO
+        PORTAL --> UTIL
+        PORTAL --> REGUL
+        PORTAL --> UNIV
+    end
+
+    GOV["OEFAF governance<br/>(planned nonprofit public charity,<br/>in formation as a Section 501(c)(3))"]
+
+    WX --> GEA_ING
+    EVENT --> GEA_ING
+    WX --> CR_FC
+    ENERGY --> CR_FC
+    ENERGY --> GEA_ING
+    REG --> CR_GRID
+
+    GEA_SCORE --> SD_API
+    CR_GRID --> SD_API
+
+    SD_API --> PORTAL
+
+    GOV -. governs / open-source license .-> SDMAC
+    GOV -. neutrality & public-interest mission .-> USERS
+
+    classDef govbox fill:#eef3ff,stroke:#3355aa,stroke-width:1px,color:#1a2a55;
+    class GOV govbox;

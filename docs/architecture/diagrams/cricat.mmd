@@ -1,0 +1,26 @@
+%% CRICAT — Climate-Risk Integrated Capacity-Allocation Toolkit component
+%% architecture. Non-proprietary. Weather/climate inputs
+%% through load forecasting, grid-region modeling, scenario analysis,
+%% capacity-allocation logic, to regulator-ready reporting.
+%% No proprietary or employer code, data, models, or identifiers.
+flowchart LR
+    subgraph INPUTS["Public / licensed inputs"]
+        direction TB
+        I_WX["Weather / climate inputs<br/>(NOAA NCEP, ECMWF Open Data)"]
+        I_ISO["Public ISO/RTO market data<br/>(PJM, ERCOT, MISO public reports)"]
+        I_REL["Reliability assessments<br/>(NERC)"]
+    end
+
+    FC["Load forecasting<br/>(open-source sklearn model on calendar +<br/>synthetic-weather features; prediction intervals; MAPE)"]
+    GRID["Grid-region modeling<br/>(reserve margin = (capacity - demand)/demand)"]
+    SCEN["Scenario analysis<br/>(stress drivers: heatwave, cold snap, outage, fuel constraint)"]
+    ALLOC["Capacity-allocation logic<br/>(probability_of_stress from reserve margin, clipped 0-1)"]
+    REPORT["Regulator-ready reporting<br/>(load_forecast_record &<br/>capacity_allocation_scenario records)"]
+
+    I_WX --> FC
+    I_ISO --> FC
+    I_WX --> SCEN
+    I_REL --> SCEN
+
+    FC --> GRID --> SCEN --> ALLOC --> REPORT
+    REPORT -. published via .-> SDMAC["SD-MAC API<br/>(/v1/forecasts, /v1/scenarios)"]

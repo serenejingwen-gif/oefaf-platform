@@ -1,0 +1,35 @@
+# schema: supply_disruption_event
+# Purpose: GEA event record describing a detected supply-disruption signal from
+#          public sources. Public-data record format only; contains no
+#          proprietary fields, identifiers, or model parameters.
+schema: supply_disruption_event
+version: 0.1
+fields:
+  - name: event_id
+    type: string
+    description: Stable unique identifier for the disruption event
+  - name: detected_at_utc
+    type: timestamp
+    units: ISO-8601 UTC
+    description: Time the event was first detected from public sources
+  - name: commodity
+    type: enum
+    values: [crude_oil, natural_gas, refined_products, electricity, lng, coal, agricultural]
+    description: Affected commodity category
+  - name: region_iso
+    type: string
+    description: ISO 3166-1 alpha-3 country code or recognized region code (e.g., "USA", "EUR")
+  - name: source_categories
+    type: array<string>
+    description: Public source categories supporting detection (e.g., "ais", "satellite", "sanctions", "weather")
+  - name: severity_score
+    type: float
+    units: 0.0_to_1.0
+    description: Calibrated supply-disruption severity score
+  - name: confidence
+    type: float
+    units: 0.0_to_1.0
+    description: Calibration-based confidence score
+  - name: public_evidence_refs
+    type: array<url>
+    description: Public source URLs supporting the event

@@ -1,0 +1,17 @@
+# Virtual environment (reproducible from requirements.txt; not shipped)
+.venv/
+
+# Python bytecode / build artifacts
+__pycache__/
+*.pyc
+*.egg-info/
+
+# Test / lint tool caches
+.pytest_cache/
+.ruff_cache/
+
+# Notebook execution checkpoints
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store

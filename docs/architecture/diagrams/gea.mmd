@@ -1,0 +1,26 @@
+%% GEA — Geopolitical-Event Analytics component architecture.
+%% Non-proprietary. Public-source event ingestion through cleaning, scoring,
+%% supply-disruption risk estimation, to alert/dashboard output.
+%% No proprietary or employer code, data, models, or identifiers.
+flowchart LR
+    subgraph INPUTS["Public / licensed inputs"]
+        direction TB
+        I_SANCT["Sanctions data<br/>(OFAC SDN, public archives)"]
+        I_AIS["Public AIS vessel positions"]
+        I_SAT["Satellite imagery<br/>(Copernicus / USGS)"]
+        I_WX["Weather feeds<br/>(NOAA NCEP)"]
+    end
+
+    ING["Event ingestion<br/>(loaders for synthetic public-style fixtures)"]
+    CLEAN["Data cleaning<br/>(normalization, dedup, feature extraction)"]
+    SCORE["Event scoring<br/>(transparent weighted feature aggregation;<br/>severity in [0,1], logistic confidence)"]
+    RISK["Supply-disruption risk estimation<br/>(severity x confidence -> commodity/region risk)"]
+    OUT["Alert / dashboard output<br/>(supply_disruption_event records)"]
+
+    I_SANCT --> ING
+    I_AIS --> ING
+    I_SAT --> ING
+    I_WX --> ING
+
+    ING --> CLEAN --> SCORE --> RISK --> OUT
+    OUT -. published via .-> SDMAC["SD-MAC API (/v1/events)"]

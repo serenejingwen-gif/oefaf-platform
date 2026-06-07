@@ -1,0 +1,42 @@
+# schema: capacity_allocation_scenario
+# Purpose: CRICAT scenario for grid stress and capacity-allocation analysis.
+#          Public-data record format only; contains no proprietary fields,
+#          identifiers, or model parameters.
+schema: capacity_allocation_scenario
+version: 0.1
+fields:
+  - name: scenario_id
+    type: string
+    description: Stable unique identifier for the scenario
+  - name: scenario_label
+    type: string
+    description: Human-readable scenario name (e.g., "summer_2027_extreme_heat_pjm")
+  - name: stress_drivers
+    type: array<string>
+    description: Public stress drivers (e.g., "heatwave", "cold_snap", "outage", "fuel_constraint")
+  - name: time_horizon_hours
+    type: integer
+    units: hours
+    description: Time horizon of the scenario in hours
+  - name: regions
+    type: array<string>
+    description: ISO/RTO regions in scope
+  - name: assumed_demand_mw
+    type: float
+    units: megawatts
+    description: Assumed peak demand for the scenario
+  - name: assumed_available_capacity_mw
+    type: float
+    units: megawatts
+    description: Assumed available capacity for the scenario
+  - name: reserve_margin_pct
+    type: float
+    units: percent
+    description: Reserve margin as a percentage of demand
+  - name: probability_of_stress
+    type: float
+    units: 0.0_to_1.0
+    description: Estimated probability that the scenario results in grid stress
+  - name: data_provenance
+    type: array<url>
+    description: Public-data provenance references

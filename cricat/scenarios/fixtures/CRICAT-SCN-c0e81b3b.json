@@ -1,0 +1,20 @@
+{
+  "scenario_id": "CRICAT-SCN-c0e81b3b",
+  "scenario_label": "multi_region_demand_surge_pjm_miso",
+  "stress_drivers": [
+    "heatwave",
+    "transmission_constraint"
+  ],
+  "time_horizon_hours": 72,
+  "regions": [
+    "PJM",
+    "MISO"
+  ],
+  "assumed_demand_mw": 210000.0,
+  "assumed_available_capacity_mw": 231000.0,
+  "reserve_margin_pct": 10.0,
+  "probability_of_stress": 0.182,
+  "data_provenance": [
+    "<JING_WEN_TO_FILL: verified public data-provenance URL(s) for this scenario>"
+  ]
+}

@@ -1,0 +1,21 @@
+# module_manifest record (conforms to sdmac/schema_registry/module_manifest.yaml v0.1)
+# GEA event-scoring module: transparent weighted feature aggregation that emits
+# supply_disruption_event records from public-source-category features.
+module_id: gea-scoring
+module_name: GEA Event Scoring
+platform_component: gea
+license: MIT
+maintainers:
+  - "<JING_WEN_TO_FILL: maintainer handle or institutional affiliation>"
+public_dependencies:
+  - "numpy==1.26.4"
+  - "pandas==2.2.2"
+  - "PyYAML"
+data_inputs:
+  - "synthetic_sanctions_signals"
+  - "synthetic_ais_signals"
+  - "synthetic_weather_signals"
+outputs:
+  - "supply_disruption_event"
+validation_status: draft
+documentation_url: "<JING_WEN_TO_FILL: documentation URL>"

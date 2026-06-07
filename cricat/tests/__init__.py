@@ -1,0 +1,1 @@
+"""CRICAT test suite (pytest)."""

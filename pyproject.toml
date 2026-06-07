@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "oefaf-platform"
+version = "0.1.0"
+description = "Open Energy Finance Analytics Foundation (OEFAF) reference platform — GEA, CRICAT, and SD-MAC components built on public and openly licensed data only. Synthetic illustrative data is bundled for demonstration."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "Jing Wen" }]
+keywords = [
+    "energy",
+    "open-data",
+    "grid-reliability",
+    "supply-disruption",
+    "public-interest",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "pandas==2.2.2",
+    "numpy==1.26.4",
+    "scikit-learn==1.5.1",
+    "fastapi==0.128.0",
+    "uvicorn",
+    "pydantic==2.12.5",
+    "PyYAML",
+    "jsonschema==4.23.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+    "nbconvert",
+    "nbformat",
+    "ipykernel",
+    "jupyter",
+    "matplotlib",
+    "httpx",
+]
+
+[tool.setuptools]
+packages = ["gea", "cricat", "sdmac", "shared"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+# Synthetic-only, public-data-only reference platform; lint the component packages.
+src = ["gea", "cricat", "sdmac", "shared"]
+extend-exclude = [".venv", "__pycache__", ".ipynb_checkpoints"]
+
+[tool.ruff.lint]
+# E/F: pyflakes + pycodestyle errors; I: import sorting; UP: pyupgrade; B: bugbear.
+select = ["E", "F", "I", "UP", "B"]
+ignore = [
+    "E501",  # line length is governed by the formatter, not the linter
+]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+# Component test suites live under each component's tests/ directory.
+testpaths = ["gea/tests", "cricat/tests", "sdmac/tests", "shared"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-ra"

@@ -1,0 +1,22 @@
+# module_manifest record (conforms to sdmac/schema_registry/module_manifest.yaml v0.1)
+# CRICAT day-ahead load-forecasting module: scikit-learn regression on calendar
+# and synthetic-weather features; emits load_forecast_record with prediction
+# intervals.
+module_id: cricat-load-forecasting
+module_name: CRICAT Load Forecasting
+platform_component: cricat
+license: MIT
+maintainers:
+  - "<JING_WEN_TO_FILL: maintainer handle or institutional affiliation>"
+public_dependencies:
+  - "scikit-learn==1.5.1"
+  - "numpy==1.26.4"
+  - "pandas==2.2.2"
+data_inputs:
+  - "synthetic_iso_load_history"
+  - "synthetic_weather_features"
+  - "calendar_features"
+outputs:
+  - "load_forecast_record"
+validation_status: draft
+documentation_url: "<JING_WEN_TO_FILL: documentation URL>"

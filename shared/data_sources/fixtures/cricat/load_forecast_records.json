@@ -1,0 +1,66 @@
+[
+  {
+    "forecast_id": "CRICAT-FC-0000",
+    "iso_region": "PJM",
+    "forecast_issued_at_utc": "2026-03-12T00:00:00Z",
+    "target_window_start_utc": "2026-03-13T00:00:00Z",
+    "target_window_end_utc": "2026-03-14T00:00:00Z",
+    "predicted_load_mw": 71290.1,
+    "prediction_interval_low_mw": 68438.5,
+    "prediction_interval_high_mw": 74141.7,
+    "model_id": "cricat-gbr-dayahead-v0.1",
+    "input_data_sources": [
+      "synthetic_load_history",
+      "synthetic_weather",
+      "calendar_features"
+    ]
+  },
+  {
+    "forecast_id": "CRICAT-FC-0001",
+    "iso_region": "ERCOT",
+    "forecast_issued_at_utc": "2026-03-12T01:00:00Z",
+    "target_window_start_utc": "2026-03-13T01:00:00Z",
+    "target_window_end_utc": "2026-03-14T01:00:00Z",
+    "predicted_load_mw": 67526.0,
+    "prediction_interval_low_mw": 64825.0,
+    "prediction_interval_high_mw": 70227.0,
+    "model_id": "cricat-gbr-dayahead-v0.1",
+    "input_data_sources": [
+      "synthetic_load_history",
+      "synthetic_weather",
+      "calendar_features"
+    ]
+  },
+  {
+    "forecast_id": "CRICAT-FC-0002",
+    "iso_region": "PJM",
+    "forecast_issued_at_utc": "2026-03-12T02:00:00Z",
+    "target_window_start_utc": "2026-03-13T02:00:00Z",
+    "target_window_end_utc": "2026-03-14T02:00:00Z",
+    "predicted_load_mw": 67815.2,
+    "prediction_interval_low_mw": 65102.6,
+    "prediction_interval_high_mw": 70527.8,
+    "model_id": "cricat-gbr-dayahead-v0.1",
+    "input_data_sources": [
+      "synthetic_load_history",
+      "synthetic_weather",
+      "calendar_features"
+    ]
+  },
+  {
+    "forecast_id": "CRICAT-FC-0003",
+    "iso_region": "MISO",
+    "forecast_issued_at_utc": "2026-03-12T03:00:00Z",
+    "target_window_start_utc": "2026-03-13T03:00:00Z",
+    "target_window_end_utc": "2026-03-14T03:00:00Z",
+    "predicted_load_mw": 68946.7,
+    "prediction_interval_low_mw": 66188.8,
+    "prediction_interval_high_mw": 71704.6,
+    "model_id": "cricat-gbr-dayahead-v0.1",
+    "input_data_sources": [
+      "synthetic_load_history",
+      "synthetic_weather",
+      "calendar_features"
+    ]
+  }
+]

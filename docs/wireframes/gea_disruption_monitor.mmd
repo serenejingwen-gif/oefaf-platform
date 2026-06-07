@@ -1,0 +1,18 @@
+%% Wireframe — GEA Disruption Monitor.
+%% Layout regions only; no proprietary visualization, data, or branding.
+%% Public-data provenance traces under every figure.
+flowchart TB
+    HEADER["Header: GEA Disruption Monitor (public dashboard)"]
+
+    subgraph BODY[" "]
+        direction LR
+        LEFT["Left-rail filter panel<br/>- Commodity<br/>- Region<br/>- Minimum severity"]
+        MAP["Map pane (center)<br/>Global map with event markers<br/>color-coded by severity<br/>(low / moderate / elevated / high)"]
+        RIGHT["Right-rail event-detail pane<br/>- Time of detection<br/>- Severity score<br/>- Public evidence references<br/>- Event narrative"]
+    end
+
+    BOTTOM["Bottom panel: top public sources<br/>contributing to each detection<br/>(public-data provenance for every figure)"]
+
+    HEADER --> BODY
+    LEFT --- MAP --- RIGHT
+    BODY --> BOTTOM

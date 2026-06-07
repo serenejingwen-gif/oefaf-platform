@@ -1,0 +1,19 @@
+{
+  "scenario_id": "CRICAT-SCN-9c425fd7",
+  "scenario_label": "winter_2027_cold_snap_ercot",
+  "stress_drivers": [
+    "cold_snap",
+    "fuel_constraint"
+  ],
+  "time_horizon_hours": 48,
+  "regions": [
+    "ERCOT"
+  ],
+  "assumed_demand_mw": 74000.0,
+  "assumed_available_capacity_mw": 80000.0,
+  "reserve_margin_pct": 8.11,
+  "probability_of_stress": 0.229,
+  "data_provenance": [
+    "<JING_WEN_TO_FILL: verified public data-provenance URL(s) for this scenario>"
+  ]
+}

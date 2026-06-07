@@ -1,0 +1,62 @@
+[
+  {
+    "scenario_id": "CRICAT-SCN-0000",
+    "scenario_label": "summer_extreme_heat_pjm",
+    "stress_drivers": [
+      "heatwave",
+      "outage"
+    ],
+    "time_horizon_hours": 24,
+    "regions": [
+      "PJM"
+    ],
+    "assumed_demand_mw": 107249.8,
+    "assumed_available_capacity_mw": 103568.6,
+    "reserve_margin_pct": -3.43,
+    "probability_of_stress": 0.603,
+    "data_provenance": [
+      "https://example.org/public-provenance/summer_extreme_heat_pjm/0",
+      "https://example.org/public-provenance/summer_extreme_heat_pjm/1"
+    ]
+  },
+  {
+    "scenario_id": "CRICAT-SCN-0001",
+    "scenario_label": "winter_cold_snap_ercot",
+    "stress_drivers": [
+      "cold_snap",
+      "fuel_constraint"
+    ],
+    "time_horizon_hours": 48,
+    "regions": [
+      "ERCOT"
+    ],
+    "assumed_demand_mw": 65953.1,
+    "assumed_available_capacity_mw": 75675.4,
+    "reserve_margin_pct": 14.74,
+    "probability_of_stress": 0.058,
+    "data_provenance": [
+      "https://example.org/public-provenance/winter_cold_snap_ercot/0",
+      "https://example.org/public-provenance/winter_cold_snap_ercot/1"
+    ]
+  },
+  {
+    "scenario_id": "CRICAT-SCN-0002",
+    "scenario_label": "multi_region_demand_surge",
+    "stress_drivers": [
+      "heatwave"
+    ],
+    "time_horizon_hours": 72,
+    "regions": [
+      "PJM",
+      "MISO"
+    ],
+    "assumed_demand_mw": 87470.5,
+    "assumed_available_capacity_mw": 85907.8,
+    "reserve_margin_pct": -1.79,
+    "probability_of_stress": 0.554,
+    "data_provenance": [
+      "https://example.org/public-provenance/multi_region_demand_surge/0",
+      "https://example.org/public-provenance/multi_region_demand_surge/1"
+    ]
+  }
+]

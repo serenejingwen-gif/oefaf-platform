@@ -1,0 +1,86 @@
+# Public data-source inventory (machine-readable)
+# ----------------------------------------------------------------------------
+# This file enumerates the public and openly licensed data sources identified
+# for use across GEA, CRICAT, and SD-MAC. It catalogs the public and openly
+# licensed data sources identified for the platform. Every source listed is
+# public or openly licensed; no proprietary or restricted feeds appear. The
+# `public_access_reference` field uses the `<JING_WEN_TO_FILL>` placeholder
+# convention exactly — verified public URLs are intentionally NOT invented here
+# and remain to be filled in.
+#
+# NOTE: Any sample/fixture data bundled elsewhere in this repository is synthetic
+# illustrative data generated for demonstration. It is NOT real agency data and
+# NOT derived from any proprietary or employer source.
+schema_version: 0.1
+sources:
+  - source: NCEP / NWS numerical weather forecasts
+    provider: NOAA National Centers for Environmental Prediction
+    license_access: U.S. Government public domain
+    platform_component: CRICAT (load forecasting); GEA (weather-driven supply disruption)
+    public_access_reference: "<JING_WEN_TO_FILL: verified public URL for NCEP/NWS data>"
+
+  - source: ECMWF Open Data
+    provider: European Centre for Medium-Range Weather Forecasts
+    license_access: ECMWF Open Data License (CC BY 4.0)
+    platform_component: CRICAT; GEA
+    public_access_reference: "<JING_WEN_TO_FILL: verified public URL for ECMWF Open Data>"
+
+  - source: EIA Open Data API
+    provider: U.S. Energy Information Administration
+    license_access: U.S. Government public domain
+    platform_component: GEA (supply); CRICAT (capacity)
+    public_access_reference: "<JING_WEN_TO_FILL: verified public URL for the EIA Open Data API>"
+
+  - source: FERC eLibrary
+    provider: Federal Energy Regulatory Commission
+    license_access: U.S. Government public domain
+    platform_component: CRICAT (regulatory); SD-MAC (governance reference)
+    public_access_reference: "<JING_WEN_TO_FILL: verified public URL for FERC eLibrary>"
+
+  - source: NERC reliability assessments and event reports
+    provider: North American Electric Reliability Corporation
+    license_access: Publicly published
+    platform_component: CRICAT (reliability)
+    public_access_reference: "<JING_WEN_TO_FILL: verified public URL for NERC publications>"
+
+  - source: OFAC SDN list and sanctions data
+    provider: U.S. Department of the Treasury, Office of Foreign Assets Control
+    license_access: U.S. Government public domain
+    platform_component: GEA (sanctions / event detection)
+    public_access_reference: "<JING_WEN_TO_FILL: verified public URL for OFAC SDN list>"
+
+  - source: Public AIS vessel-position aggregators
+    provider: Multiple (public AIS aggregators)
+    license_access: Public / licensed-public terms
+    platform_component: GEA (shipping disruption monitoring)
+    public_access_reference: "<JING_WEN_TO_FILL: verified public URL(s) for selected public AIS aggregator(s)>"
+
+  - source: Sentinel-2 / Landsat 8/9 satellite imagery
+    provider: Copernicus / NASA / USGS
+    license_access: Free and open (Copernicus / USGS)
+    platform_component: GEA (satellite-based event detection); CRICAT (infrastructure)
+    public_access_reference: "<JING_WEN_TO_FILL: verified public URL for the Copernicus Open Access Hub and USGS EarthExplorer entry points>"
+
+  - source: ISO/RTO public market data — PJM, ERCOT, MISO
+    provider: PJM Interconnection; ERCOT; MISO
+    license_access: Public market data terms
+    platform_component: CRICAT (load and capacity); SD-MAC (replication benchmarks)
+    public_access_reference: "<JING_WEN_TO_FILL: verified public URLs for PJM Data Miner 2, ERCOT Public Reports, MISO Market Reports>"
+
+  - source: USGS earthquake, hydrology, and infrastructure data
+    provider: U.S. Geological Survey
+    license_access: U.S. Government public domain
+    platform_component: GEA (event detection); CRICAT (infrastructure exposure)
+    public_access_reference: "<JING_WEN_TO_FILL: verified public URL for the relevant USGS data services>"
+
+  - source: USDA NASS agricultural statistics
+    provider: U.S. Department of Agriculture, National Agricultural Statistics Service
+    license_access: U.S. Government public domain
+    platform_component: GEA (agricultural / commodity supply context)
+    public_access_reference: "<JING_WEN_TO_FILL: verified public URL for USDA NASS Quick Stats>"
+
+  - source: DOE / EIA Form data (e.g., Form 860, Form 923)
+    provider: U.S. Department of Energy / EIA
+    license_access: U.S. Government public domain
+    platform_component: CRICAT (generation capacity); SD-MAC (reference data)
+    public_access_reference: "<JING_WEN_TO_FILL: verified public URLs for DOE/EIA Form 860 and Form 923 datasets>"

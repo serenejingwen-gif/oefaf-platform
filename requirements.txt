@@ -1,0 +1,25 @@
+# OEFAF platform — pinned runtime + development dependencies.
+# All versions match the reproducible .venv verified on 2026-06-06 (Python 3.12.7).
+# Public/open-source libraries only; no proprietary or employer-internal packages.
+
+# --- Runtime ---
+pandas==2.2.2
+numpy==1.26.4
+scikit-learn==1.5.1
+fastapi==0.128.0
+uvicorn
+pydantic==2.12.5
+httpx
+PyYAML
+jsonschema==4.23.0
+
+# --- Notebooks / demonstration ---
+jupyter
+nbconvert
+nbformat
+ipykernel
+matplotlib
+
+# --- Tooling ---
+ruff
+pytest

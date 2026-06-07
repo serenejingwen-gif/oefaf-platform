@@ -1,0 +1,39 @@
+# schema: module_manifest
+# Purpose: SD-MAC manifest describing a deployable module. Public-data record
+#          format only; contains no proprietary fields, identifiers, or model
+#          parameters.
+schema: module_manifest
+version: 0.1
+fields:
+  - name: module_id
+    type: string
+    description: Stable unique identifier for the module
+  - name: module_name
+    type: string
+    description: Human-readable module name
+  - name: platform_component
+    type: enum
+    values: [gea, cricat, sdmac, shared]
+    description: Platform component the module belongs to
+  - name: license
+    type: string
+    description: Open-source license identifier (e.g., "MIT")
+  - name: maintainers
+    type: array<string>
+    description: Maintainer handles or institutional affiliations
+  - name: public_dependencies
+    type: array<string>
+    description: Open-source dependencies with version constraints
+  - name: data_inputs
+    type: array<string>
+    description: Public/licensed data inputs consumed
+  - name: outputs
+    type: array<string>
+    description: Schema-registered output record types
+  - name: validation_status
+    type: enum
+    values: [draft, internal_validated, public_validated]
+    description: Validation maturity of the module
+  - name: documentation_url
+    type: url
+    description: URL of the module's public documentation

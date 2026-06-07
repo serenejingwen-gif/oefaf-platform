@@ -1,0 +1,20 @@
+# module_manifest record (conforms to sdmac/schema_registry/module_manifest.yaml v0.1)
+# CRICAT grid-modeling module: reserve-margin computation and probability-of-stress
+# estimation; emits capacity_allocation_scenario records.
+module_id: cricat-grid-modeling
+module_name: CRICAT Grid Modeling
+platform_component: cricat
+license: MIT
+maintainers:
+  - "<JING_WEN_TO_FILL: maintainer handle or institutional affiliation>"
+public_dependencies:
+  - "numpy==1.26.4"
+  - "pandas==2.2.2"
+data_inputs:
+  - "synthetic_demand_assumptions"
+  - "synthetic_capacity_assumptions"
+  - "synthetic_stress_drivers"
+outputs:
+  - "capacity_allocation_scenario"
+validation_status: draft
+documentation_url: "<JING_WEN_TO_FILL: documentation URL>"

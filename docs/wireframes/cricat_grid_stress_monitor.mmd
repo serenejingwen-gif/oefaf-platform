@@ -1,0 +1,18 @@
+%% Wireframe — CRICAT Grid-Stress Monitor.
+%% Layout regions only; no proprietary visualization, data, or branding.
+%% Uses public ISO/RTO regions and public weather/demand inputs.
+flowchart TB
+    HEADER["Header: CRICAT Grid-Stress Monitor (public dashboard)"]
+    TOPBAR["Top-bar time-horizon selector<br/>(next 24 hours / next 7 days / seasonal)"]
+
+    subgraph BODY[" "]
+        direction LR
+        MAP["Map pane (center)<br/>U.S. map of public ISO/RTO regions<br/>(PJM, ERCOT, MISO, NYISO,<br/>ISO-NE, CAISO, SPP)<br/>with a stress indicator per region"]
+        RIGHT["Right-rail panel<br/>- Predicted load<br/>- Prediction interval<br/>- Available capacity<br/>- Reserve margin<br/>- Stress probability"]
+    end
+
+    BOTTOM["Bottom panel: scenario explorations<br/>using public weather and demand inputs"]
+
+    HEADER --> TOPBAR --> BODY
+    MAP --- RIGHT
+    BODY --> BOTTOM

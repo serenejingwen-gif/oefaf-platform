@@ -1,0 +1,22 @@
+# module_manifest record (conforms to sdmac/schema_registry/module_manifest.yaml v0.1)
+# Shared utilities module: schema loading/validation, seeded synthetic-data
+# generation, and I/O helpers used across GEA, CRICAT, and SD-MAC.
+module_id: shared-utilities
+module_name: Shared Utilities
+platform_component: shared
+license: MIT
+maintainers:
+  - "<JING_WEN_TO_FILL: maintainer handle or institutional affiliation>"
+public_dependencies:
+  - "PyYAML"
+  - "jsonschema==4.23.0"
+  - "numpy==1.26.4"
+  - "pandas==2.2.2"
+data_inputs:
+  - "schema_registry_yaml"
+  - "synthetic_fixtures"
+outputs:
+  - "json_schema"
+  - "synthetic_fixtures"
+validation_status: draft
+documentation_url: "<JING_WEN_TO_FILL: documentation URL>"

@@ -1,0 +1,18 @@
+%% Wireframe — SD-MAC Public Portal.
+%% Layout regions only; no proprietary visualization, data, or branding.
+%% Module discovery and reproducibility over public data.
+flowchart TB
+    HEADER["Header: SD-MAC Public Portal (module discovery & reproducibility)"]
+    SEARCH["Search bar<br/>(filter by component / license / validation status)"]
+
+    subgraph BODY[" "]
+        direction LR
+        CATALOG["Catalog pane (center)<br/>Searchable list of modules<br/>- Platform component<br/>- License<br/>- Validation status<br/>- Documentation links"]
+        DETAIL["Module-detail page (right)<br/>- Inputs<br/>- Outputs<br/>- Dependencies<br/>- Contributor history"]
+    end
+
+    REPRO["'Reproduce This' panel<br/>one-click access to public notebooks<br/>demonstrating module behavior on public data"]
+
+    HEADER --> SEARCH --> BODY
+    CATALOG --- DETAIL
+    BODY --> REPRO

@@ -1,0 +1,98 @@
+[
+  {
+    "module_id": "gea-scoring",
+    "module_name": "GEA Event Scoring",
+    "platform_component": "gea",
+    "license": "MIT",
+    "maintainers": [
+      "<JING_WEN_TO_FILL: maintainer handle/affiliation>"
+    ],
+    "public_dependencies": [
+      "pandas>=2.2",
+      "numpy>=1.26",
+      "scikit-learn>=1.5",
+      "fastapi>=0.128",
+      "pydantic>=2.12"
+    ],
+    "data_inputs": [
+      "synthetic_public_fixtures"
+    ],
+    "outputs": [
+      "supply_disruption_event"
+    ],
+    "validation_status": "draft",
+    "documentation_url": "<JING_WEN_TO_FILL: docs URL>"
+  },
+  {
+    "module_id": "cricat-load-forecasting",
+    "module_name": "CRICAT Day-Ahead Load Forecasting",
+    "platform_component": "cricat",
+    "license": "MIT",
+    "maintainers": [
+      "<JING_WEN_TO_FILL: maintainer handle/affiliation>"
+    ],
+    "public_dependencies": [
+      "pandas>=2.2",
+      "numpy>=1.26",
+      "scikit-learn>=1.5",
+      "fastapi>=0.128",
+      "pydantic>=2.12"
+    ],
+    "data_inputs": [
+      "synthetic_public_fixtures"
+    ],
+    "outputs": [
+      "load_forecast_record"
+    ],
+    "validation_status": "draft",
+    "documentation_url": "<JING_WEN_TO_FILL: docs URL>"
+  },
+  {
+    "module_id": "cricat-grid-modeling",
+    "module_name": "CRICAT Grid Modeling & Scenarios",
+    "platform_component": "cricat",
+    "license": "MIT",
+    "maintainers": [
+      "<JING_WEN_TO_FILL: maintainer handle/affiliation>"
+    ],
+    "public_dependencies": [
+      "pandas>=2.2",
+      "numpy>=1.26",
+      "scikit-learn>=1.5",
+      "fastapi>=0.128",
+      "pydantic>=2.12"
+    ],
+    "data_inputs": [
+      "synthetic_public_fixtures"
+    ],
+    "outputs": [
+      "capacity_allocation_scenario"
+    ],
+    "validation_status": "draft",
+    "documentation_url": "<JING_WEN_TO_FILL: docs URL>"
+  },
+  {
+    "module_id": "sdmac-api",
+    "module_name": "SD-MAC Public API",
+    "platform_component": "sdmac",
+    "license": "MIT",
+    "maintainers": [
+      "<JING_WEN_TO_FILL: maintainer handle/affiliation>"
+    ],
+    "public_dependencies": [
+      "pandas>=2.2",
+      "numpy>=1.26",
+      "scikit-learn>=1.5",
+      "fastapi>=0.128",
+      "pydantic>=2.12"
+    ],
+    "data_inputs": [
+      "synthetic_public_fixtures"
+    ],
+    "outputs": [
+      "module_manifest"
+    ],
+    "validation_status": "draft",
+    "documentation_url": "<JING_WEN_TO_FILL: docs URL>"
+  }
+]

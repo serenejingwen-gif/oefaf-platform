@@ -1,0 +1,19 @@
+{
+  "scenario_id": "CRICAT-SCN-12ed1945",
+  "scenario_label": "summer_2027_extreme_heat_pjm",
+  "stress_drivers": [
+    "heatwave",
+    "forced_outage"
+  ],
+  "time_horizon_hours": 24,
+  "regions": [
+    "PJM"
+  ],
+  "assumed_demand_mw": 151000.0,
+  "assumed_available_capacity_mw": 148500.0,
+  "reserve_margin_pct": -1.66,
+  "probability_of_stress": 0.562,
+  "data_provenance": [
+    "<JING_WEN_TO_FILL: verified public data-provenance URL(s) for this scenario>"
+  ]
+}

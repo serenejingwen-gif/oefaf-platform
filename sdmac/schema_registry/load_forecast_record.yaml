@@ -1,0 +1,44 @@
+# schema: load_forecast_record
+# Purpose: CRICAT short-horizon power-load forecast record for a public ISO/RTO
+#          region. Public-data record format only; contains no proprietary
+#          fields, identifiers, or model parameters.
+schema: load_forecast_record
+version: 0.1
+fields:
+  - name: forecast_id
+    type: string
+    description: Unique identifier for this forecast issuance
+  - name: iso_region
+    type: enum
+    values: [PJM, ERCOT, MISO, NYISO, ISO_NE, CAISO, SPP]
+    description: Public ISO/RTO region
+  - name: forecast_issued_at_utc
+    type: timestamp
+    units: ISO-8601 UTC
+    description: Time the forecast was issued
+  - name: target_window_start_utc
+    type: timestamp
+    units: ISO-8601 UTC
+    description: Start of the forecast target window
+  - name: target_window_end_utc
+    type: timestamp
+    units: ISO-8601 UTC
+    description: End of the forecast target window
+  - name: predicted_load_mw
+    type: float
+    units: megawatts
+    description: Point forecast of load over the target window
+  - name: prediction_interval_low_mw
+    type: float
+    units: megawatts
+    description: Lower bound of the prediction interval
+  - name: prediction_interval_high_mw
+    type: float
+    units: megawatts
+    description: Upper bound of the prediction interval
+  - name: model_id
+    type: string
+    description: Identifier of the open-source model that produced the forecast
+  - name: input_data_sources
+    type: array<string>
+    description: Public-data source identifiers used as features

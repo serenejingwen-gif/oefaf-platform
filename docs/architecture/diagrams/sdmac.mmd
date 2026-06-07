@@ -1,0 +1,39 @@
+%% SD-MAC — Sector-Wide Deployable Modular Analytics Commons component
+%% architecture. Non-proprietary. APIs, schema registry,
+%% documentation, containerized modules, open-source repository, and
+%% security/auditability layer.
+%% No proprietary or employer code, data, models, or identifiers.
+flowchart TB
+    subgraph SDMAC["SD-MAC commons"]
+        direction TB
+
+        subgraph IFACE["Public interfaces"]
+            direction LR
+            API["Public REST API (/v1)<br/>events, forecasts, scenarios, modules"]
+            DOCS["Documentation<br/>(OpenAPI spec, usage guides)"]
+        end
+
+        subgraph REGISTRY["Contracts & metadata"]
+            direction LR
+            SCHEMA["Schema registry<br/>(supply_disruption_event,<br/>load_forecast_record,<br/>capacity_allocation_scenario,<br/>module_manifest)"]
+            MANIFEST["Module manifests<br/>(per-module module_manifest YAML)"]
+        end
+
+        subgraph MODULES["Deployable units"]
+            direction LR
+            CONTAINER["Containerized modules<br/>(GEA scoring, CRICAT forecasting,<br/>grid modeling)"]
+            REPO["Open-source repository<br/>(MIT license, public Git platform)"]
+        end
+
+        AUDIT["Security & auditability<br/>(schema-conformance checks,<br/>validation_status, provenance refs,<br/>contribution / code-review policy)"]
+
+        SCHEMA -. validates .-> API
+        MANIFEST -. describes .-> CONTAINER
+        DOCS -. documents .-> API
+        CONTAINER -. packaged in .-> REPO
+        AUDIT -. enforces over .-> REGISTRY
+        AUDIT -. enforces over .-> MODULES
+        AUDIT -. enforces over .-> IFACE
+    end
+
+    API --> CONSUMERS["External consumers<br/>(agencies, ISOs/RTOs, utilities,<br/>regulators, universities, researchers)"]
